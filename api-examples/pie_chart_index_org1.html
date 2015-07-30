@@ -1,0 +1,50 @@
+<html>
+<head>
+
+<title>JSChart</title>
+
+    <script src="../../../Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../../../js/jscharts.js"></script>
+    <script src="../../../js/jsHelper.js"></script>
+
+</head>
+<body>
+
+<div id="graph">Loading graph...</div>
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+        var _http = http_path_organizations();
+
+        $.getJSON(_http, function (org_data) {
+            var array = $.map(org_data, function (org_data) {
+                return [[org_data.Name, parseInt(org_data.Id *89.36)]];
+            });
+
+            console.debug(array);
+            var colors = randomColorGenerator(array.length);
+            var myChart = new JSChart('graph', 'pie');
+            myChart.setDataArray(array);
+            myChart.colorizePie(colors); 
+            myChart.setTitle('Internet penetration by World Region in 2007 (%)');
+            myChart.setTitleColor('#8E8E8E');
+            myChart.setTitleFontSize(11);
+            myChart.setTextPaddingTop(30);
+            myChart.setPieUnitsColor('#8F8F8F');
+            myChart.setPieValuesColor('#6E6E6E');
+            myChart.setSize(616, 321);
+            myChart.setPiePosition(308, 190);
+            myChart.setPieRadius(85);
+            myChart.setBackgroundImage('chart_bg.jpg');
+            myChart.draw();
+        });
+
+    });
+
+    </script>
+
+ 
+
+</body>
+</html>

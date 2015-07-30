@@ -1,0 +1,88 @@
+﻿<html>
+<head>
+
+    <title>JSChart</title>
+    <script src="../../../Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../../../js/jscharts.js"></script>
+    <script src="../../js/jsHelper.js"></script>
+
+    <!--<script>
+
+        //$(document).ready(function () {
+        //    var x = new Array();
+
+        //    $.getJSON("http://api.issoa.net/api/organizations", function (org_data) {
+        //        //alert(org_data[1].Name);
+        //        //$.each(org_data, function (i, value) {
+        //        //    //alert(value.Id);
+        //        //    //alert(value.Type);
+        //        //    //alert(value.Name);
+        //        //    //alert(value.Description);
+        //        //});
+
+        //        $.each(org_data, function (key, val) {
+        //            x.push(val.Name);
+        //            x.push(parseInt(val.Id));
+
+        //            //x.push(val.Type);
+        //        });
+        //        alert(x);
+        //    });
+
+        //});
+
+    </script>-->
+
+
+</head>
+<body>
+
+    <div id="graph">Loading graph...</div>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () { 
+            var _http = http_path_work_package();
+            $.getJSON(_http, function (data)
+            {
+                var array = $.map(data, function (data) {
+                    return [[data.Name, parseInt(data.Id)]];
+                });
+
+                console.debug(array);   
+                var colors = randomColorGenerator(array.length);//['#FA5E1F', '#FDCB3F', '#71D743', '#D23333', '#BAE73F', '#B381C9'];
+                console.debug(colors);
+                var myChart = new JSChart('graph', 'bar');
+                myChart.setDataArray(array);
+                myChart.colorizeBars(randomColorGenerator(array.length));
+                myChart.setTitle('AT-PAC - Work Packages');
+                myChart.setTitleColor('#8E8E8E');
+                myChart.setAxisNameX('Orgs');
+                myChart.setAxisNameY('%');
+                myChart.setAxisColor('#c6c6c6');
+                myChart.setAxisWidth(1);
+                myChart.setAxisNameColor('#9a9a9a');
+                myChart.setAxisValuesColor('#939393');
+                myChart.setAxisPaddingTop(60);
+                myChart.setAxisPaddingLeft(50);
+                myChart.setAxisPaddingBottom(60);
+                myChart.setTextPaddingBottom(20);
+                myChart.setTextPaddingLeft(15);
+                myChart.setTitleFontSize(11);
+                myChart.setBarBorderWidth(0);
+                myChart.setBarSpacingRatio(50);
+                myChart.setBarValuesColor('#737373');
+                myChart.setGrid(false);
+                myChart.setSize(616, 321);
+                //myChart.setBackgroundImage('chart_bg.jpg');
+                myChart.draw();
+        });
+
+    });
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿<html>
+<head>
+
+    <title>JSChart</title>
+    <script src="../../../Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../../../js/jscharts.js"></script>
+    <script src="../../js/jsHelper.js"></script> 
+</head>
+<body>
+
+    <div id="graph">Loading graph...</div>
+
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+        var _http = http_path_organizations();
+         
+        $.getJSON(_http, function (org_data) {
+            var array = $.map(org_data, function (org_data) {
+                return [[org_data.Type, parseInt(org_data.Id)]];
+            });
+
+            console.debug(array);
+
+            var colors = randomColorGenerator(array.length);//['#FA5E1F', '#FDCB3F', '#71D743', '#D23333', '#BAE73F', '#AB7B55', '#B381C9', '#AB7B55', '#B381C9'];
+            var myChart = new JSChart('graph', 'bar');
+            myChart.setDataArray(array);
+            myChart.colorizeBars(colors);
+            myChart.setTitle('AT-PAC - Organization');
+            myChart.setTitleColor('#8E8E8E');
+            myChart.setAxisNameX('Orgs');
+            myChart.setAxisNameY('%');
+            myChart.setAxisColor('#c6c6c6');
+            myChart.setAxisWidth(1);
+            myChart.setAxisNameColor('#9a9a9a');
+            myChart.setAxisValuesColor('#939393');
+            myChart.setAxisPaddingTop(60);
+            myChart.setAxisPaddingLeft(50);
+            myChart.setAxisPaddingBottom(60);
+            myChart.setTextPaddingBottom(20);
+            myChart.setTextPaddingLeft(15);
+            myChart.setTooltip([1, 'custom<br>contents']);
+            myChart.setTitleFontSize(11);
+            myChart.setBarBorderWidth(0);
+            myChart.setBarSpacingRatio(50);
+            myChart.setBarValuesColor('#737373');
+            myChart.setGrid(false);
+            myChart.setSize(616, 321);
+            myChart.setBackgroundImage('chart_bg.jpg');
+
+            //tooltip:
+            myChart.setFlagRadius(2);
+            myChart.setTooltip(['admin', 'U.S.A and Canada']);
+
+            //legend:
+            myChart.setLegendShow(true);
+            myChart.setLegendPosition('right top');
+            myChart.setLegendForBar(1, '2005');
+            myChart.setLegendForBar(2, '2010');
+
+            myChart.draw();
+        });
+
+    });
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+
+<title>JSChart</title>
+
+    <script src="../../../Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../../../js/jscharts.js"></script>
+
+    <script src="../../../js/jsHelper.js"></script>
+
+</head>
+<body>
+
+<div id="graph">Loading graph...</div>
+
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+        var _http = http_path_organizations();
+      
+        $.getJSON(_http, function (org_data) {
+            var array = $.map(org_data, function (org_data) { 
+                return [[parseInt(org_data.Id), parseInt(org_data.Id)]];
+            });
+
+            console.debug(array);
+            var colors = randomColorGenerator(array.length);
+            var myChart = new JSChart('graph', 'line');
+            myChart.setDataArray(array);
+            myChart.setLineColor('#8D9386');
+            myChart.setLineWidth(4);
+            myChart.setTitleColor('#7D7D7D');
+            myChart.setAxisColor('#9F0505');
+            myChart.setGridColor('#a4a4a4');
+            myChart.setAxisValuesColor('#333639');
+            myChart.setAxisNameColor('#333639');
+            myChart.setTextPaddingLeft(0);
+            myChart.draw();
+        });
+
+    }); 
+
+    </script> 
+</body>
+</html>
